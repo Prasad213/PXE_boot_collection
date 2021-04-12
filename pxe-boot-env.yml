@@ -1,0 +1,12 @@
+---
+- hosts: all
+  var_files: 
+  pre_tasks:
+          - name: Update system
+            yum: 
+              name: '*'
+              state: latest
+  roles:
+          - role: pxe-boot
+
+

@@ -1,0 +1,17 @@
+---
+- name: restart httpd
+  service:
+          name: httpd
+          state: restarted
+          enabled: yes
+- name: restart xinetd
+  service:
+          name: xinetd
+          state: restarted
+          enabled: yes
+- name: restart dhcpd
+  service:
+          name: dhcpd
+          state: restarted
+          enabled: yes
+# handlers file for pxe-boot

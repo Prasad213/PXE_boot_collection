@@ -1,0 +1,31 @@
+---
+- name: copy boot loader files provided by syslinux tftpboot dir
+  copy:
+          src: /usr/share/syslinux/
+          dest: "{{ tftpboot_dir }}/"
+          remote_src: yes
+          mode: preserve
+- name: kernel and initrd files copy to tftpboot
+  copy:
+          src: "{{ centos7_dir }}/images/pxeboot/{{ item }}"
+          dest: "{{ tftpboot_dir }}/centos7/"
+          remote_src: yes
+          mode: preserve
+  loop:
+          - vmlinuz
+          - initrd.img
+- name: create pxe server configuration file
+  file:
+          path: "{{ tftpboot_dir }}/pxelinux.cfg"
+          state: directory
+- template:
+          src: default.j2
+          dest: "{{ tftpboot_dir }}/pxelinux.cfg/default"
+- name: Enable tftp server
+  lineinfile:
+          path: /etc/xinetd.d/tftp
+          regexp: "disable=yes"
+          line: "disable=no"
+          state: present
+          backup: yes
+  notify: restart xinetd

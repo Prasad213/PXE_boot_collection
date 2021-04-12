@@ -1,0 +1,19 @@
+---
+- name: Install all Packages
+  yum:
+          name: "{{ packages }}"
+  vars:
+          packages:
+                  - httpd
+                  - dhcp
+                  - tftp
+                  - tftp-server
+                  - syslinux
+                  - vsftpd
+                  - xinetd
+- include: HTTP.yml
+- include: tftp.yml
+- include: dhcp.yml
+- include: firewall_conf.yml
+
+# tasks file for pxe-boot

@@ -1,0 +1,12 @@
+---
+pxe_host: "{{ ansible_default_ipv4.address }}"
+pxe_netmask: "{{ ansible_default_ipv4.netmask }}"
+pxe_network: "{{ ansible_default_ipv4.network }}"
+pxe_broadcast: "{{ ansible_default_ipv4.broadcast }}"
+pxe_domain: "{{ ansible_domain }}"
+pxe_gateway: "{{ ansible_default_ipv4.gateway }}"
+pxe_subnet: "{{ ansible_default_ipv4.address }}/{{ ansible_default_ipv4.netmask }}"
+centos7_dir: /var/www/centos7
+tftpboot_dir: /var/lib/tftpboot
+
+# vars file for pxe-boot

@@ -1,0 +1,10 @@
+subnet {{ pxe_network }} netmask {{ pxe_netmask }} {
+ range {{ pxe_subnet | next_nth_usable(50) }} {{ pxe_subnet | next_nth_usable(100) }};
+ option domain-name-servers 8.8.8.8, 8.8.4.4;
+ option domain-name "{{ ansible_domain }}";
+ option routers {{ pxe_gateway }};
+ option broadcast-address {{ pxe_broadcast }};
+ default-lease-time 600;
+ max-lease-time 7200;
+ filename "pxelinux.0";
+}

@@ -1,0 +1,7 @@
+---
+- name: configure DHCP server to work with PXE server
+  template:
+          src: dhcpd.conf.j2
+          dest: /etc/dhcp/dhcpd.conf
+  notify: restart dhcpd
+

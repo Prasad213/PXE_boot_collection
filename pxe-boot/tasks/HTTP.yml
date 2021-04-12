@@ -1,0 +1,24 @@
+---
+- name: create directory to store centos packages
+  file:
+          path: "{{ centos7_dir }}"
+          state: directory
+
+- block:
+        - name: configuring HTTP as network server
+          copy:
+                  src: /mnt/
+                  dest: "{{ centos7_dir }}/"
+                  directory_mode: true
+                  mode: '0755'
+  rescue:
+          - debug:
+                   msg: "centos7 data is not found in {{ centos7_dir }} directory. mount centos7 iso on ansible server systems {{ centos7_dir }} directory using command 'mount -o loop /tmp/centos7.iso {{ centos7_dir }}' and rerun playbook"
+
+- name: Copy configuration file for PXE server
+  template:
+          src: pxe.conf.j2
+          dest: /etc/httpd/conf.d/pxe.conf
+  notify: restart httpd
+
+
